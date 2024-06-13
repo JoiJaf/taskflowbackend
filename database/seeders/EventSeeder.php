@@ -22,6 +22,7 @@ class EventSeeder extends Seeder
         Event::create(['id'=> 5,'title'=>'Respuesta diseño de página web','description'=>'Va de nuevo Joiner','status'=>'Activo','image'=>'/img/default-image.png','tag_id'=> 3,'course_id'=> 3,'user_specific_id'=> 1]);
         Event::create(['id'=> 6,'title'=>'English Test','description'=>'Topics: Rhetorical patterns, Comparatives and Superlatives, Typographical clues, Vocabulary from Chapters 3-4 English for IT book, Reading comprehension','status'=>'Activo','image'=>'/img/default-image.png','tag_id'=> 2,'course_id'=> 5,'user_specific_id'=> 1]);
         Event::create(['id'=> 7,'title'=>'Realizar premisa y sipnosis del proyecto','description'=>'Traer para la próxima clase la premisa y la sipnosis terminada','status'=>'Activo','image'=>'/img/default-image.png','tag_id'=> 2,'course_id'=> 4,'user_specific_id'=> 1]);
+        Event::create(['id'=> 8,'title'=>'Realizar premisa y sipnosis del proyecto','description'=>'Traer para la próxima clase la premisa y la sipnosis terminada','status'=>'Activo','image'=>'/img/default-image.png','tag_id'=> 2,'course_id'=> 4,'user_specific_id'=> 1]);
 
     }
 }
