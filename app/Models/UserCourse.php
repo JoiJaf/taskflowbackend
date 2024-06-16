@@ -15,6 +15,7 @@ class UserCourse extends Pivot
     protected $fillable = [
         'user_specific_id',
         'course_id'
-        
+
     ];
+
 }

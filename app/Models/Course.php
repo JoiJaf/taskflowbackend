@@ -33,4 +33,5 @@ class Course extends Model
     {
         return $this->belongsToMany(Event::class, 'courses_events', 'course_id', 'event_id');
     }
+
 }

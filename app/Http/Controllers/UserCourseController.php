@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Database\Seeders\UserCourseSeeder;
 use Illuminate\Http\Request;
+
+use App\Models\UserCourse;
+use App\Models\UserSpecific;
+use App\Models\Course;
+
 
 class UserCourseController extends Controller
 {
@@ -12,6 +18,13 @@ class UserCourseController extends Controller
     public function index()
     {
         //
+        $userCourses = UserCourse::select(
+            'user_courses.user_specific_id',
+            'user_courses.course_id',
+            'user_specifics.name',
+            'courses.name as course_name'
+        );
+        return $userCourses;
     }
 
     /**
@@ -33,9 +46,10 @@ class UserCourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
         //
+        $userCourses = UserCourse::select();
     }
 
     /**

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\User;
+
 class UserController extends Controller
 {
     /**
@@ -12,6 +14,8 @@ class UserController extends Controller
     public function index()
     {
         //
+        $users = User::all();
+        return $users;
     }
 
     /**
@@ -20,6 +24,7 @@ class UserController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -28,6 +33,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $users= User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'email_verified_at' => now(),
+            'password' => bcrypt($request->password)
+        ]);
+
+        return response()->json(['message' => 'Usuario creado', 'user' => $users], 201);
     }
 
     /**
@@ -44,6 +57,9 @@ class UserController extends Controller
     public function edit(string $id)
     {
         //
+        $users = User::find($id);
+        return view('users.edit', compact('users'));
+
     }
 
     /**
@@ -52,6 +68,18 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $users = User::find($id);
+
+        $users->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'email_verified_at' => now(),
+            'password' => bcrypt($request->password)
+        ]);
+
+        return redirect()->route('users.index')
+            ->with('success', 'Usuario actualizado');
+        
     }
 
     /**
@@ -60,5 +88,9 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+        $users = User::find($id);
+        $users->delete();
+
+        return redirect()->route('users.index')->with('success', 'Usuario eliminado');
     }
 }
