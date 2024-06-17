@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\UserSpecific;
+use App\Models\UserLevel;
 
 
 class UserSpecificController extends Controller
@@ -22,12 +23,12 @@ class UserSpecificController extends Controller
             'users_levels.user_level_name as user_level_name'
         )
         ->join('users_levels', 'user_specific.user_level_id', '=', 'users_levels.id')
-        ->where('user_specific.id', $id)
+        ->where('user_specific.id', 1)
         ->orderBy('scheduled_at', 'asc')
         ->paginate(10);
         //->get();
         
-        $total = count(UserSpecific::all()->where('status_events_id', 1));
+        $total = count(UserSpecific::all());
         return view('', compact('users', 'total'));
     }
 
@@ -86,8 +87,7 @@ class UserSpecificController extends Controller
     {
         //
         $user = UserSpecific::find($id);
-       
-        
+    
         return view('', compact(''));
 
     }
@@ -119,6 +119,6 @@ class UserSpecificController extends Controller
         $user = UserSpecific::find($id);
         $user->delete();
 
-        return redirect()->route('')->with('success','user deleted successfully.');
+        return redirect()->route('')->with('success','User deleted successfully.');
     }
 }
