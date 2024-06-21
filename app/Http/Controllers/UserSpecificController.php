@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\UserSpecific;
+use App\Models\UserLevel;
+
 
 class UserSpecificController extends Controller
 {
@@ -13,6 +16,20 @@ class UserSpecificController extends Controller
     public function index()
     {
         //
+        $user = UserSpecific::select(
+            'users_specific.email',
+            'users_specific.user_name',
+            'users_specific.password',
+            'users_levels.user_level_name as user_level_name'
+        )
+        ->join('users_levels', 'user_specific.user_level_id', '=', 'users_levels.id')
+        ->where('user_specific.id', 1)
+        ->orderBy('scheduled_at', 'asc')
+        ->paginate(10);
+        //->get();
+        
+        $total = count(UserSpecific::all());
+        return view('', compact('users', 'total'));
     }
 
     /**
@@ -21,6 +38,10 @@ class UserSpecificController extends Controller
     public function create()
     {
         //
+        $user = UserSpecific::all();
+
+        return view('');
+
     }
 
     /**
@@ -29,6 +50,15 @@ class UserSpecificController extends Controller
     public function store(Request $request)
     {
         //
+        UserSpecific::create([
+            'email' => $request->email,
+            'user_name' => $request->user_name,
+            'password' => $request->password,
+            'user_level_id' => $request->user_level_id
+        ]);  
+    
+        return redirect()->route('')->with('success','User registered successfully.');
+
     }
 
     /**
@@ -37,6 +67,17 @@ class UserSpecificController extends Controller
     public function show(string $id)
     {
         //
+        $user = UserSpecific::select(
+            'users_specific.email',
+            'users_specific.user_name',
+            'users_specific.password',
+            'users_levels.user_level_name as user_level_name'
+        )
+        ->join('users_levels', 'user_specific.user_level_id', '=', 'users_levels.id')
+        ->where('user_specific.id', $id)
+        ->get();
+
+        return view('', compact('user'));
     }
 
     /**
@@ -45,6 +86,10 @@ class UserSpecificController extends Controller
     public function edit(string $id)
     {
         //
+        $user = UserSpecific::find($id);
+    
+        return view('', compact(''));
+
     }
 
     /**
@@ -53,6 +98,16 @@ class UserSpecificController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $user = UserSpecific::find($id);
+
+        $user->update([
+            'email' => $request->email,
+            'user_name' => $request->user_name,
+            'password' => $request->password,
+            'user_level_id' => $request->user_level_id
+        ]);  
+    
+        return redirect()->route('')->with('success','User updated successfully.');
     }
 
     /**
@@ -61,5 +116,9 @@ class UserSpecificController extends Controller
     public function destroy(string $id)
     {
         //
+        $user = UserSpecific::find($id);
+        $user->delete();
+
+        return redirect()->route('')->with('success','User deleted successfully.');
     }
 }
