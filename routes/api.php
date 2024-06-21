@@ -3,6 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\UserCourseController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\TagController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/userCourse/all', [UserCourseController::class, 'index']);
+Route::get('/events/all', [EventController::class, 'index']);
+Route::get('/usersAdmin/all', [UserController::class, 'index']);
+Route::get('/tags/all', [TagController::class, 'index']);
+//Route::get('/listUserCourse/{id}', [UserCourseController::class, 'show']);
