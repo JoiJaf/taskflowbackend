@@ -13,112 +13,37 @@ class UserSpecificController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-        $user = UserSpecific::select(
-            'users_specific.email',
-            'users_specific.user_name',
-            'users_specific.password',
-            'users_levels.user_level_name as user_level_name'
-        )
-        ->join('users_levels', 'user_specific.user_level_id', '=', 'users_levels.id')
-        ->where('user_specific.id', 1)
-        ->orderBy('scheduled_at', 'asc')
-        ->paginate(10);
-        //->get();
-        
-        $total = count(UserSpecific::all());
-        return view('', compact('users', 'total'));
+
+    public function SingIn(Request $request){
+
+    try{
+
+        //Permite obtener datos específicos enviados por POST
+        $data = $request->only(['username', 'emailAddress', 'password']);
+
+        $user = new UserSpecific();
+        $user->email = $data['emailAddress'];
+        $user->user_name = $data['username'];
+        $user->password = bcrypt($data['password']);
+        $user->user_level_id = 1;
+        $user->save();
+
+        return response()->json(['mensaje' => 'Usuario creado exitosamente','usuario' => $user], 201); // Código de estado 201: Creado
+
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-        $user = UserSpecific::all();
+    public function Login(Request $request){
 
-        return view('');
+        //Permite obtener datos específicos enviados por POST
+        $data = $request->only(['username', 'password']);
 
-    }
+        UserSpecific::where('user_name', $data['username'])->firstOrFail();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-        UserSpecific::create([
-            'email' => $request->email,
-            'user_name' => $request->user_name,
-            'password' => $request->password,
-            'user_level_id' => $request->user_level_id
-        ]);  
-    
-        return redirect()->route('')->with('success','User registered successfully.');
+        return response()->json(['mensaje' => 'Usuario logueado exitosamente'], 200); // Código de estado 200: OK
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-        $user = UserSpecific::select(
-            'users_specific.email',
-            'users_specific.user_name',
-            'users_specific.password',
-            'users_levels.user_level_name as user_level_name'
-        )
-        ->join('users_levels', 'user_specific.user_level_id', '=', 'users_levels.id')
-        ->where('user_specific.id', $id)
-        ->get();
-
-        return view('', compact('user'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-        $user = UserSpecific::find($id);
-    
-        return view('', compact(''));
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-        $user = UserSpecific::find($id);
-
-        $user->update([
-            'email' => $request->email,
-            'user_name' => $request->user_name,
-            'password' => $request->password,
-            'user_level_id' => $request->user_level_id
-        ]);  
-    
-        return redirect()->route('')->with('success','User updated successfully.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-        $user = UserSpecific::find($id);
-        $user->delete();
-
-        return redirect()->route('')->with('success','User deleted successfully.');
-    }
 }
