@@ -40,9 +40,9 @@ class UserSpecificController extends Controller
     
     {
         //Permite obtener datos específicos enviados por POST
-        $data = $request->only(['username', 'password']);
+        $data = $request->only(['emailAddress', 'password']);
 
-        $user = UserSpecific::where('user_name', $data['username'])->first();
+        $user = UserSpecific::where('email', $data['emailAddress'])->first();
 
         if (!$user) {
             return response()->json(['error' => 'Usuario no encontrado'], 401);

@@ -8,6 +8,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserSpecificController;
+use App\Http\Controllers\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,5 +33,10 @@ Route::get('/tags/all', [TagController::class, 'index']);
 //Ruta para los post enviados por el frontend
 Route::post('/singInData', [UserSpecificController::class, 'SingIn']);
 Route::post('/LoginData', [UserSpecificController::class, 'Login']);
+
+// ruta para los cursos
+Route::get('/listCourses/{id}', [CourseController::class, 'index']);
+
+
 
 //Route::get('/listUserCourse/{id}', [UserCourseController::class, 'show']);
