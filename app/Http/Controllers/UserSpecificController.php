@@ -55,5 +55,17 @@ class UserSpecificController extends Controller
         return response()->json(['mensaje' => 'Usuario logueado exitosamente','usuario' => $user], 200); // Código de estado 200: OK
 
     }
+
+    public function dataUsers(){
+
+        $users = UserSpecific::select(
+            'users_specific.id',
+            'users_specific.email',
+            'users_specific.user_name',
+            'users_specific.user_level_id'
+        )->get();
+        
+        return $users;
+    }
     
 }

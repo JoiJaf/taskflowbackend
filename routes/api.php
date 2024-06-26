@@ -30,6 +30,9 @@ Route::get('/events/all', [EventController::class, 'index']);
 Route::get('/usersAdmin/all', [UserController::class, 'index']);
 Route::get('/tags/all', [TagController::class, 'index']);
 
+Route::get('/userSpecific/all', [UserSpecificController::class, 'dataUsers']);
+//http://taskflowbackend.test/api/userSpecific/all
+
 //Ruta para los post enviados por el frontend
 Route::post('/singInData', [UserSpecificController::class, 'SingIn']);
 Route::post('/LoginData', [UserSpecificController::class, 'Login']);
