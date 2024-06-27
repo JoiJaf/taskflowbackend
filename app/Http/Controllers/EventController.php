@@ -8,7 +8,7 @@ use App\Models\UserSpecific;
 
 class EventController extends Controller
 {
-    public function index($id)
+    public function index()
     {
 
         $events = Event::all();
@@ -28,7 +28,7 @@ class EventController extends Controller
             'course_id' => 'required',
             'user_specific_id' => 'required',
             'title' => 'required|string',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable', // ajusta los tipos de archivo y el tamaño máximo según tus necesidades
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable', 
             'description' => 'required|string',
             'status' => 'required|string',
             'finish_date' => 'required|date',
@@ -37,7 +37,7 @@ class EventController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time().'.'.$image->getClientOriginalExtension();
-            $image->storeAs('public/images', $imageName); // Guarda la imagen en storage/app/public/images
+            $image->storeAs('public/images', $imageName); 
 
             $validatedData['image'] = $imageName;
         }
