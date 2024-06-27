@@ -18,4 +18,14 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         return response()->json($category);
     }
+
+    public function category()
+    {
+        $category = Category::all();
+        return $category;
+    }
+
+    public function searchCategory()
+    {
+    }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserSpecificController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ Route::get('/events/{id}', [EventController::class, 'listEvent']);
 Route::get('/event/{id}', [EventController::class, 'specificEvent']);
 Route::get('/usersAdmin/all', [UserController::class, 'index']);
 Route::get('/tags/all', [TagController::class, 'index']);
+Route::get('/categories/all', [CategoryController::class, 'category']);
+
 
 Route::get('/userSpecific/all', [UserSpecificController::class, 'dataUsers']);
 //http://taskflowbackend.test/api/userSpecific/all
