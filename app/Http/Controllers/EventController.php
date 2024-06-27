@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Event;
 use App\Models\UserSpecific;
 
@@ -28,7 +29,7 @@ class EventController extends Controller
             'course_id' => 'required',
             'user_specific_id' => 'required',
             'title' => 'required|string',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable', 
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
             'description' => 'required|string',
             'status' => 'required|string',
             'finish_date' => 'required|date',
@@ -37,12 +38,14 @@ class EventController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time().'.'.$image->getClientOriginalExtension();
-            $image->storeAs('public/images', $imageName); 
+            $image->storeAs('public\images', $imageName); 
 
+            
             $validatedData['image'] = $imageName;
         }
 
         $event = Event::create($validatedData);
+
         return redirect()->route('events.index');
     }
 
@@ -59,23 +62,39 @@ class EventController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $event = Event::findOrFail($id);
+{
+    $event = Event::findOrFail($id);
 
-        $validatedData = $request->validate([
-            'tag_id' => 'required',
-            'course_id' => 'required',
-            'user_specific_id' => 'required',
-            'title' => 'required|string',
-            'image' => 'string|nullable',
-            'description' => 'required|string',
-            'status' => 'required|string',
-            'finish_date' => 'required|date',
-        ]);
+    $validatedData = $request->validate([
+        'tag_id' => 'required',
+        'course_id' => 'required',
+        'user_specific_id' => 'required',
+        'title' => 'required|string',
+        'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
+        'description' => 'required|string',
+        'status' => 'required|string',
+        'finish_date' => 'required|date',
+    ]);
 
-        $event->update($validatedData);
-        return redirect()->route('events.index');
+    
+    if ($request->hasFile('image')) {
+       
+        if ($event->image) {
+            Storage::delete('public/storage/images/' . $event->image);
+        }
+
+        
+        $image = $request->file('image');
+        $imageName = time().'.'.$image->getClientOriginalExtension();
+        $image->storeAs('public/images', $imageName);
+
+        $validatedData['image'] = $imageName;
     }
+
+    $event->update($validatedData);
+
+    return redirect()->route('events.index');
+}
 
     public function destroy($id)
     {
