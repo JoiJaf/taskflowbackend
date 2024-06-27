@@ -67,5 +67,43 @@ class UserSpecificController extends Controller
         
         return $users;
     }
+
+    public function index()
+    {
+        $users = UserSpecific::select(
+
+            'users_specific.id',
+            'users_specific.email',
+            'users_specific.user_name',
+            'users_levels.user_level_name as users_levels'
+
+        )->join('users_levels', 'users_specific.user_level_id', '=', 'users_levels.id')
+        ->orderBy('users_specific.created_at', 'asc')
+        ->paginate(10);
+
+        $total = count(UserSpecific::all());
+
+        return view('users.index', compact('users', 'total'));
+    }
     
+    public function create()
+    {
+        return view('users.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'email' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+            'userLevel' => 'required'
+        ]);
+
+        $user = UserSpecific::create($validatedData);
+
+        return redirect()->route('users.index')->with('success', 'User created successfully!');
+    }
+
+
 }
