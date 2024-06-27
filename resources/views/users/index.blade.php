@@ -39,7 +39,7 @@
                 <td>
                     <form action="{{ route('users.destroy', $user->id) }}" method="POST">
         
-                        <a class="inline-block mx-6" href="{{ route('users.edit',$user->id) }}">
+                        <a class="inline-block mx-6" href="{{ route('users.edit', $user->id) }}">
                             <button type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                                 Edit
                             </button>

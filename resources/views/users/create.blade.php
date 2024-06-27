@@ -47,9 +47,11 @@
             </div>
             <div class="mt-2 mb-2">
                 <div>
-                    <label for="userLevel" class="block mb-2 text-sm font-medium text-black">User Level:</label>
-                    <input type="userLevel" class="bg-[#faf8f8] border-[0.1rem] border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400" name="userLevel" placeholder="User Level" >
-                </div>
+                <label for="userLevel" class="block mb-2 text-sm font-medium text-black">User Level:</label>
+                <select id="userLevel" class="bg-[#faf8f8] border-[0.1rem] border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400" name="userLevel">
+                     <option value="1">User</option>
+                    <option value="2">Admin</option>
+                 </select></div>
             </div>
             <div>
                 <button type="submit" class="inline-block text-white bg-black hover:text-white focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 me-2 mb-4 w-[6rem]">Submit</button>

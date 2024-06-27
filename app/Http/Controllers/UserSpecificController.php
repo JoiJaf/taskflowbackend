@@ -94,16 +94,65 @@ class UserSpecificController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'username' => 'required',
             'password' => 'required',
             'userLevel' => 'required'
         ]);
-
-        $user = UserSpecific::create($validatedData);
-
+    
+        $userData = [
+            'email' => $validatedData['email'],
+            'user_name' => $validatedData['username'],
+            'password' => bcrypt($validatedData['password']),
+            'user_level_id' => $validatedData['userLevel']
+        ];
+    
+        $user = UserSpecific::create($userData);
+    
         return redirect()->route('users.index')->with('success', 'User created successfully!');
     }
 
+    public function edit(String $id)
+    {
+
+        $user = UserSpecific::find($id);
+
+        return view('users.edit', compact('user'));
+    }
+
+    public function update(Request $request, string $id)
+    {
+
+        $user = UserSpecific::find($id);
+
+        if (!$user) {
+            return redirect()->route('users.index')->with('error', 'User not found.');
+        }
+        
+        $validatedData = $request->validate([
+            'email' => 'required|email',
+            'username' => 'required',
+            'userLevel' => 'required'
+        ]);
+    
+        $userData = [
+            'email' => $validatedData['email'],
+            'user_name' => $validatedData['username'],
+            'user_level_id' => $validatedData['userLevel']
+        ];
+
+        $user->update($userData);
+
+        return redirect()->route('users.index', $user)->with('success', 'User updated successfully!');
+    }
+
+    public function destroy(string $id)
+    {
+
+        $user = UserSpecific::find($id);
+        $user->delete();
+
+        return redirect()->route('users.index')->with('success', 'User deleted successfully!');
+    }
 
 }

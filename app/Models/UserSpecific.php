@@ -10,7 +10,7 @@ class UserSpecific extends Model
     use HasFactory;
 
     protected $table = 'users_specific';
-    protected $primaryKey = 'user_specific_id';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
@@ -22,16 +22,16 @@ class UserSpecific extends Model
 
     public function userLevel()
     {
-        return $this->belongsTo(UserLevel::class, 'user_level_id', 'user_level_id');
+        return $this->belongsTo(UserLevel::class, 'user_level_id', 'id');
     }
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class, 'users_courses', 'user_specific_id', 'course_id');
+        return $this->belongsToMany(Course::class, 'users_courses', 'id', 'course_id');
     }
 
     public function events()
     {
-        return $this->hasMany(Event::class, 'user_specific_id', 'user_specific_id');
+        return $this->hasMany(Event::class, 'id', 'id');
     }
 }
