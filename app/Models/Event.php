@@ -10,7 +10,7 @@ class Event extends Model
     use HasFactory;
 
     protected $table = 'events';
-    protected $primaryKey = 'event_id';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
@@ -20,6 +20,7 @@ class Event extends Model
         'title',
         'image',
         'description',
+        'finish_date',
         'status'
     ];
 
