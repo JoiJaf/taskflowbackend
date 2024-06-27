@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\UserSpecific;
 
 class EventController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $events = Event::all();
-        return $events;
+        
     }
 
     public function show($id)
@@ -58,4 +58,31 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $event->delete();
     }
+
+    public function listEvent($id)
+    {
+        // $users = UserSpecific::select('id')->where('id', $id)->get();
+        // foreach ($users as $event) {
+        //     $events=Event::where('user_specific_id', $event->id)->select('title')->get();
+        //     $event->$event = $events;
+        // }
+        // return $users;
+
+        $events = Event::where('user_specific_id', $id)->get();
+        return $events;
+    }
+
+    public function specificEvent($id)
+    {
+        // $users = UserSpecific::select('id')->where('id', $id)->get();
+        // foreach ($users as $event) {
+        //     $events=Event::where('user_specific_id', $event->id)->select('title')->get();
+        //     $event->$event = $events;
+        // }
+        // return $users;
+
+        $events = Event::where('id', $id)->get();
+        return $events;
+    }
+
 }

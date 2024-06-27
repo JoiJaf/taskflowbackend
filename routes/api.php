@@ -26,7 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/userCourse/all', [UserCourseController::class, 'index']);
-Route::get('/events/all', [EventController::class, 'index']);
+Route::get('/events/{id}', [EventController::class, 'listEvent']);
+Route::get('/event/{id}', [EventController::class, 'specificEvent']);
 Route::get('/usersAdmin/all', [UserController::class, 'index']);
 Route::get('/tags/all', [TagController::class, 'index']);
 
