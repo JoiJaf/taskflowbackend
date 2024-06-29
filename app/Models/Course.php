@@ -10,7 +10,7 @@ class Course extends Model
     use HasFactory;
 
     protected $table = 'courses';
-    protected $primaryKey = 'course_id';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
@@ -26,12 +26,12 @@ class Course extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'users_courses', 'course_id', 'user_specific_id');
+        return $this->belongsToMany(User::class, 'users_courses', 'id', 'user_specific_id');
     }
 
     public function events()
     {
-        return $this->belongsToMany(Event::class, 'courses_events', 'course_id', 'event_id');
+        return $this->belongsToMany(Event::class, 'courses_events', 'id', 'event_id');
     }
 
 }
