@@ -3,6 +3,18 @@
 @section('content')
 <div class="container mx-auto mt-10 p-4 bg-white shadow-md rounded-lg">
     <h1 class="text-3xl font-bold mb-6">Edit Event</h1>
+
+    @if ($errors->any())
+        <div class="text-center text-[#f68051]">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('events.update', $event->id) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf
         @method('PUT')
