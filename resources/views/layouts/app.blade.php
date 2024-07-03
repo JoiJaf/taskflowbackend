@@ -6,7 +6,10 @@
     <title>TaskFlow</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="max-w-[900px] mx-auto px-4 bg-white">
-    @yield('content')
+<body class="bg-white">
+    <x-navbar />
+    <div class="max-w-[900px] mx-auto px-4">
+        @yield('content')
+    </div>
 </body>
 </html>
