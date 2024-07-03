@@ -1,57 +1,35 @@
-@extends('users.layout')
- 
+@extends('layouts.app')
+
 @section('content')
-    <div class="font-[Montserrat]">
-        <div class="mt-5 text-center">
-            <div>
-                <a class="inline-block text-black bg-[#f8f7f2] border-[0.1rem] border-black hover:bg-black hover:text-white focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-4" href="{{ url( '/users' ) }}"> Back</a>
-            </div>
-            <div>
-                <h2 class="mb-2 mt-2 text-4xl font-medium leading-tight text-black">Edit Users</h2>
-            </div> 
-        </div>
-    </div>
-    
-    @if ($errors->any())
-        <div class="text-center text-[#f68051]">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    
-    <form class="max-w-[360px] mx-auto" action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+<div class="container mx-auto mt-10 p-4 bg-white shadow-md rounded-lg">
+    <h1 class="text-3xl font-bold mb-6">Edit User</h1>
+    <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf
         @method('PUT')
-    
+
         <div>
-        <div class="mt-2 mb-2">
-                <div>
-                    <label for="username" class="block mb-2 text-sm font-medium text-black">Username:</label>
-                    <input type="text" class="bg-[#faf8f8] border-[0.1rem] border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400" name="username" value="{{ $user->user_name }}" >
-                </div>
-            </div>
-            <div class="mt-2 mb-2">
-                <div>
-                    <label for="email" class="block mb-2 text-sm font-medium text-black">Email:</label>
-                    <input type="email" class="bg-[#faf8f8] border-[0.1rem] border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400" name="email" value="{{ $user->email }}" >
-                </div>
-            </div>
-            <div class="mt-2 mb-2">
-                <div>
-                    <label for="userLevel" class="block mb-2 text-sm font-medium text-black">User Level:</label>
-                    <select id="userLevel" class="bg-[#faf8f8] border-[0.1rem] border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400" name="userLevel">
-                        <option value="1" {{ $user->user_level_id == 1 ? 'selected' : '' }}>User</option>
-                        <option value="2" {{ $user->user_level_id == 2 ? 'selected' : '' }}>Admin</option>
-                    </select>
-                </div>
-            </div>
-            <div>
-                <button type="submit" class="inline-block text-white bg-black hover:text-white focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 me-2 mb-4 w-[6rem]">Submit</button>
-            </div>
+            <label for="username" class="block text-sm font-medium text-gray-700">Username:</label>
+            <input type="text" id="username" name="username" value="{{ $user->user_name }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
         </div>
+
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
+            <input type="email" id="email" name="email" value="{{ $user->email }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+
+        <div>
+            <label for="userLevel" class="block text-sm font-medium text-gray-700" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">Level:</label>
+                <select name="userLevel" id="userLevel">
+                    <option value="1" {{ $user->user_level_id == 1 ? 'selected' : '' }}>User</option>
+                    <option value="2" {{ $user->user_level_id == 2 ? 'selected' : '' }}>Admin</option>
+                </select>
+        </div>       
+
+        <button type="submit" class="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Update
+        </button>
     </form>
+    <br>
+    <a href="{{ route('users.index') }}" class="text-black hover:text-green-500">Back</a>
+</div>
 @endsection

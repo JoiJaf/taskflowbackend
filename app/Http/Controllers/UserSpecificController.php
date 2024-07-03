@@ -75,7 +75,7 @@ class UserSpecificController extends Controller
             'users_specific.id',
             'users_specific.email',
             'users_specific.user_name',
-            'users_levels.user_level_name as users_levels'
+            'users_levels.user_level_name as user_level'
 
         )->join('users_levels', 'users_specific.user_level_id', '=', 'users_levels.id')
         ->orderBy('users_specific.created_at', 'asc')
@@ -110,6 +110,12 @@ class UserSpecificController extends Controller
         $user = UserSpecific::create($userData);
     
         return redirect()->route('users.index')->with('success', 'User created successfully!');
+    }
+
+    public function show(string $id){
+        
+        $user = UserSpecific::findOrFail($id);
+        return view('users.show', compact('user'));
     }
 
     public function edit(String $id)

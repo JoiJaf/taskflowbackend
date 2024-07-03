@@ -1,19 +1,11 @@
-@extends('users.layout')
- 
+@extends('layouts.app')
+
 @section('content')
-    <div class="font-[Montserrat]">
-        <div class="mt-5 text-center">
-             <div>
-                <a class="inline-block text-black bg-[#f8f7f2] border-[0.1rem] border-black hover:bg-black hover:text-white focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-4" href="{{ route('users.index') }}"> Back</a>
-            </div>
-            <div>
-                <h2 class="mb-2 mt-2 text-4xl font-medium leading-tight text-black">Add New User</h2>
-            </div>
-        </div>
-    </div>
-    
-    @if ($errors->any())
-        <div class="text-center text-[#f68051]">
+    <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
+        <h1 class="text-2xl font-bold mb-6">Create User</h1>
+
+        @if ($errors->any())
+        <div class="text-center text-green-700">
             <strong>Whoops!</strong> There were some problems with your input.<br><br>
             <ul>
                 @foreach ($errors->all() as $error)
@@ -21,41 +13,39 @@
                 @endforeach
             </ul>
         </div>
-    @endif
-    
-    <form class="max-w-[360px] mx-auto" action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-    
+        @endif
+
+        <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+            @csrf
+
         <div>
-            <div class="mt-2 mb-2">
-                <div>
-                    <label for="username" class="block mb-2 text-sm font-medium text-black">Username:</label>
-                    <input type="text" class="bg-[#faf8f8] border-[0.1rem] border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400" name="username" placeholder="Username" >
-                </div>
-            </div>
-            <div class="mt-2 mb-2">
-                <div>
-                    <label for="email" class="block mb-2 text-sm font-medium text-black">Email:</label>
-                    <input type="email" class="bg-[#faf8f8] border-[0.1rem] border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400" name="email" placeholder="Email" >
-                </div>
-            </div>
-            <div class="mt-2 mb-2">
-                <div>
-                    <label for="password" class="block mb-2 text-sm font-medium text-black">Password:</label>
-                    <input type="password" class="bg-[#faf8f8] border-[0.1rem] border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400" name="password" placeholder="Password" >
-                </div>
-            </div>
-            <div class="mt-2 mb-2">
-                <div>
-                <label for="userLevel" class="block mb-2 text-sm font-medium text-black">User Level:</label>
-                <select id="userLevel" class="bg-[#faf8f8] border-[0.1rem] border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 placeholder-gray-400" name="userLevel">
-                     <option value="1">User</option>
-                    <option value="2">Admin</option>
-                 </select></div>
-            </div>
-            <div>
-                <button type="submit" class="inline-block text-white bg-black hover:text-white focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 me-2 mb-4 w-[6rem]">Submit</button>
-            </div>
+            <label for="username" class="block text-sm font-medium text-gray-700">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Username" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
         </div>
-    </form>
+
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+
+        <div>
+            <label for="userLevel" class="block text-sm font-medium text-gray-700" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">Level:</label>
+                <select name="userLevel" id="userLevel">
+                    <option value="1">User</option>
+                    <option value="2">Admin</option>
+                </select>
+        </div>       
+
+            <button type="submit" class="w-full bg-[#6BDD8F] text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700">
+                Create
+            </button>
+        </form>
+        <br>
+        <a href="{{ route('users.index') }}" class="text-black hover:text-green-500">Back</a>
+    </div>
 @endsection

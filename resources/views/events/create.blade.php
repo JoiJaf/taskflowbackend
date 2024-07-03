@@ -1,8 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
-        <h1 class="text-2xl font-bold mb-6">Crear Evento</h1>
+    <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
+        <h1 class="text-2xl font-bold mb-6">Create Event</h1>
+
+        @if ($errors->any())
+        <div class="text-center text-green-700">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
         <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
             <div>
@@ -37,11 +49,11 @@
                 <label for="finish_date" class="block text-sm font-medium text-gray-700">Delivery date:</label>
                 <input type="text" id="finish_date" name="finish_date" class="mt-1 block w-full border border-black rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             </div>
-            <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Crear
+            <button type="submit" class="w-full bg-[#6BDD8F] text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700">
+                Create
             </button>
         </form>
         <br>
-        <a href="{{ route('events.index') }}" class="text-indigo-600 hover:text-indigo-900">Regresar</a>
+        <a href="{{ route('events.index') }}" class="text-black hover:text-green-500">Back</a>
     </div>
 @endsection

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto mt-10 p-4 bg-white shadow-md rounded-lg">
-    <h1 class="text-3xl font-bold mb-6">Editar Evento</h1>
+    <h1 class="text-3xl font-bold mb-6">Edit Event</h1>
     <form action="{{ route('events.update', $event->id) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf
         @method('PUT')
@@ -51,10 +51,10 @@
         </div>
 
         <button type="submit" class="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Actualizar
+            Update
         </button>
     </form>
     <br>
-    <a href="{{ route('events.index') }}" class="text-indigo-600 hover:text-indigo-900">Regresar</a>
+    <a href="{{ route('events.index') }}" class="text-black hover:text-green-500">Back</a>
 </div>
 @endsection
