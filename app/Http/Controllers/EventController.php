@@ -12,8 +12,16 @@ class EventController extends Controller
     public function index()
     {
 
-        $events = Event::all();
-        return view('events.index', compact('events'));
+
+        $events = Event::select(
+            'events.id',
+            'events.title',
+        )->orderBy('created_at', 'asc')
+        ->paginate(10);
+
+        $total = count(Event::all());
+
+        return view('events.index', compact('events', 'total'));
 
     }
 

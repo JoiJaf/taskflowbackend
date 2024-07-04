@@ -38,6 +38,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="text-white mb-5">
+        {{ $events->onEachSide(5) }}
+        </div>
     @endif
 </div>
 @endsection
