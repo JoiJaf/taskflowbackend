@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserSpecificController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,10 @@ Route::get('/', function () {
 Route::resource('events', EventController::class);
 Route::resource('users', UserSpecificController::class);
 Route::resource('courses', CourseController::class);
+Route::resource('login', LoginController::class);
+Route::post('/session-start', [LoginController::class, 'Login'])->name('session-start');
+Route::view('/home', 'home')->name('home');
+
 
 
 

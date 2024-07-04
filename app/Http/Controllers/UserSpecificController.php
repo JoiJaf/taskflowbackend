@@ -52,7 +52,6 @@ class UserSpecificController extends Controller
             return response()->json(['error' => 'Contraseña incorrecta'], 401);
         }
 
-
         return response()->json(['mensaje' => 'Usuario logueado exitosamente','usuario' => $user], 200); // Código de estado 200: OK
 
     }
