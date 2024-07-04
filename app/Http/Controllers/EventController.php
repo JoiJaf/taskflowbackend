@@ -12,7 +12,6 @@ class EventController extends Controller
     public function index()
     {
 
-
         $events = Event::select(
             'events.id',
             'events.title',
@@ -135,6 +134,6 @@ class EventController extends Controller
 
         $events = Event::where('id', $id)->get();
         return $events;
-    }
+    }      
 
 }

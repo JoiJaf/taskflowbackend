@@ -6,7 +6,7 @@
     <div class="flex flex-col lg:flex-row gap-4">
         <div class="lg:w-1/3">
             @isset($event->image)
-                <img src="{{ asset('storage/images/' . $event->image) }}" alt="{{ $event->title }}" class="w-full h-auto rounded-lg">
+                <img src="{{ asset($event->image) }}" alt="{{ $event->title }}" class="w-full h-auto rounded-lg">
             @else
                 <img src="https://via.placeholder.com/150" alt="No image available" class="w-full h-auto rounded-lg">
             @endisset
