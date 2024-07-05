@@ -30,6 +30,11 @@ class UserSpecific extends Model
         return $this->belongsToMany(Course::class, 'users_courses', 'id', 'course_id');
     }
 
+    /*public function courses()
+    {
+    return $this->belongsToMany(Course::class, 'users_courses', 'user_specific_id', 'course_id');
+    }*/
+
     public function events()
     {
         return $this->hasMany(Event::class, 'id', 'id');

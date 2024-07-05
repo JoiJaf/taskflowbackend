@@ -110,7 +110,7 @@ class EventController extends Controller
         return redirect()->route('events.index');
     }
 
-    public function listEvent($id)
+    public function listEvents($id)
     {
         // $users = UserSpecific::select('id')->where('id', $id)->get();
         // foreach ($users as $event) {

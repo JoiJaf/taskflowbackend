@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/userCourse/all', [UserCourseController::class, 'index']);
-Route::get('/events/{id}', [EventController::class, 'listEvent']);
+Route::get('/events/{id}', [EventController::class, 'listEvents']);
 Route::get('/event/{id}', [EventController::class, 'specificEvent']);
 Route::get('/usersAdmin/all', [UserController::class, 'index']);
 Route::get('/tags/all', [TagController::class, 'index']);
@@ -42,5 +42,6 @@ Route::post('/singInData', [UserSpecificController::class, 'SingIn']);
 Route::post('/LoginData', [UserSpecificController::class, 'Login']);
 
 // ruta para los cursos
-Route::get('/listCourses/{id}', [CourseController::class, 'index']);
+Route::get('/courses/{id}', [CourseController::class, 'listCourses']);
+Route::get('/course/{id}', [CourseController::class, 'specificCourse']);
 //Route::get('/listUserCourse/{id}', [UserCourseController::class, 'show']);

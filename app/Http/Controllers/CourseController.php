@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Course;
 use App\Models\Category;
+use App\Models\UserCourse;
 
 class CourseController extends Controller
 {
@@ -29,6 +30,22 @@ class CourseController extends Controller
 
         return view('courses.index', compact('courses', 'total'));
 
+    }
+
+    public function listCourses($id)
+    {
+
+        $userCourses = UserCourse::where('user_specific_id', $id)->pluck('course_id');
+        $courses = Course::whereIn('id', $userCourses)->get();
+
+        return $courses;
+
+    }
+
+    public function specificCourse($id)
+    {
+        $courses = Course::where('id', $id)->get();
+        return $courses;
     }
 
     public function create()
